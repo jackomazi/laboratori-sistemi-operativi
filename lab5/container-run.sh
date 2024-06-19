@@ -36,8 +36,11 @@ for line in $(cat "$CONF_FILE"); do
     # Gestione di file e directory
     if [ -d "$ORIGIN" ]; then
         bindfs --no-allow-other "$ORIGIN" "$WORKDIR/$DEST"
-    else
+    elif [ -f "$ORIGIN" ]; then
         cp "$ORIGIN" "$WORKDIR/$DEST"
+    else
+        echo "Error: $ORIGIN is not a valid file or directory"
+        exit 2
     fi
 done
 
